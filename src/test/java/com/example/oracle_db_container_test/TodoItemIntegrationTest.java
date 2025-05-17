@@ -37,11 +37,9 @@ public class TodoItemIntegrationTest {
 
     @Test
     void createTwoTodoItems() {
-        // Cuenta inicial de TODOITEM
         Integer countBefore = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM TODOITEM", Integer.class);
 
-        // Inserta dos nuevas tareas (Oracle genera ID automáticamente por la columna IDENTITY)
         String insertSql = "INSERT INTO TODOITEM " +
                 "(DESCRIPTION, DONE, USER_ID, SPRINT_ID, DURATION, REAL_HOURS, ESTIMATED_HOURS) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -49,11 +47,9 @@ public class TodoItemIntegrationTest {
         jdbcTemplate.update(insertSql, "Test Todo 1", 0, 6, 25, 1, 0, 1.5);
         jdbcTemplate.update(insertSql, "Test Todo 2", 0, 6, 25, 2, 0, 2.5);
 
-        // Cuenta final de TODOITEM
         Integer countAfter = jdbcTemplate.queryForObject(
                 "SELECT COUNT(*) FROM TODOITEM", Integer.class);
 
-        // Verifica que se agregaron exactamente 2 filas
         assertThat(countAfter).isEqualTo(countBefore + 2);
     }
 }
