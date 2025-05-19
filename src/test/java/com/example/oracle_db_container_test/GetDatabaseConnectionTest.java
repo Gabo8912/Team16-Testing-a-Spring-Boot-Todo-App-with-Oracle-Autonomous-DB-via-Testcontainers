@@ -17,7 +17,7 @@ public class GetDatabaseConnectionTest {
     /**
      * Use a containerized Oracle Database instance for testing.
      */
-    static DockerImageName oracleImage = DockerImageName.parse("gvenzl/oracle-:23.7-slim-faststart")
+    static DockerImageName oracleImage = DockerImageName.parse("gvenzl/oracle-free:23.6-slim-faststart")
             .asCompatibleSubstituteFor("gvenzl/oracle-xe");
 
     static OracleContainer oracleContainer = new OracleContainer(oracleImage)

@@ -21,11 +21,13 @@ public class TodoItemIntegrationTest {
 
     @Container
     static OracleContainer oracleContainer = new OracleContainer(
-            DockerImageName.parse("gvenzl/oracle-free:23.7-slim-faststart")
+            DockerImageName.parse("gvenzl/oracle-free:23.6-slim-faststart")
                     .asCompatibleSubstituteFor("gvenzl/oracle-xe"))
-            .withStartupTimeout(Duration.ofMinutes(5))
+            .withStartupTimeout(Duration.ofMinutes(10))
             .withUsername("TODOUSER")
             .withPassword("VizcaBarca10$")
+            .withReuse(true) 
+            .withDatabaseName("FREEPDB1") 
             .withInitScript("oracleTeam16.sql");        
 
     @DynamicPropertySource
