@@ -9,6 +9,7 @@ import oracle.jdbc.pool.OracleDataSource;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.oracle.OracleContainer;
 
 @Testcontainers
@@ -16,7 +17,10 @@ public class GetDatabaseConnectionTest {
     /**
      * Use a containerized Oracle Database instance for testing.
      */
-    static OracleContainer oracleContainer = new OracleContainer("gvenzl/oracle-free:23.7-slim-faststart")
+    static DockerImageName oracleImage = DockerImageName.parse("gvenzl/oracle-:23.7-slim-faststart")
+            .asCompatibleSubstituteFor("gvenzl/oracle-xe");
+
+    static OracleContainer oracleContainer = new OracleContainer(oracleImage)
             .withStartupTimeout(Duration.ofMinutes(5))
             .withUsername("Gabo89")
             .withPassword("VizcaBarca10$");

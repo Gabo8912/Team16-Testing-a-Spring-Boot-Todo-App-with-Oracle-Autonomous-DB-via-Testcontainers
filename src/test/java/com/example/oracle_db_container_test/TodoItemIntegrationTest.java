@@ -9,6 +9,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.utility.DockerImageName;
 
 import java.time.Duration;
 
@@ -19,11 +20,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TodoItemIntegrationTest {
 
     @Container
-    static OracleContainer oracleContainer = new OracleContainer("gvenzl/oracle-free:23.7-slim-faststart")
+    static OracleContainer oracleContainer = new OracleContainer(
+            DockerImageName.parse("gvenzl/oracle-free:23.7-slim-faststart")
+                    .asCompatibleSubstituteFor("gvenzl/oracle-xe"))
             .withStartupTimeout(Duration.ofMinutes(5))
             .withUsername("TODOUSER")
             .withPassword("VizcaBarca10$")
-            .withInitScript("oracleTeam16.sql");
+            .withInitScript("oracleTeam16.sql");        
 
     @DynamicPropertySource
     static void overrideProperties(DynamicPropertyRegistry registry) {
